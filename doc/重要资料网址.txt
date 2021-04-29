@@ -1,0 +1,14 @@
+https://data-flair.training/blogs/kafka-architecture/
+https://www.logicbig.com/tutorials/core-java-tutorial/java-multi-threading.html
+
+你通过 8888/actuator/prometheus 这个接口获取一下数据呢
+prometheus 就是通过这个端口和路径来获取的
+http://10.81.30.97:8888/actuator/prometheus
+访问所有的暴露给Prometheus的metrics数据
+
+刘宏缔的架构森林是一个专注架构的博客，地址：https://www.cnblogs.com/architectforest
+? ? ? ? ?对应的源码可以访问这里获取：?https://github.com/liuhongdi/
+https://www.cnblogs.com/architectforest/p/13576701.html
+markdown语法
+https://markdown.com.cn/basic-syntax/
+https://github.com/zhangdaiscott/jeecg-boot
