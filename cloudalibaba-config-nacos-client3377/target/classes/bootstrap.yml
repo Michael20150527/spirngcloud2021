@@ -1,0 +1,18 @@
+server:
+  port: 3377
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      discovery:
+        #server-addr: localhost:8848 # 注册中心
+        server-addr: 192.168.100.141:1111 # nginx设置虚拟IP, 后面跟着nacos集群作为真正的注册中心
+      config:
+        #server-addr: localhost:8848 # 配置中心
+        server-addr: 192.168.100.141:1111 # nginx设置虚拟IP, 后面跟着nacos集群作为真正的配置中心
+        file-extension: yaml # 这里指定的文件格式需要和nacos上新建的配置文件后缀相同，否则读不到
+        #group: TEST_GROUP
+        #namespace: d82de204-7dec-4565-9fab-d3c0ee7aa7bb
+
+#  ${spring.application.name}-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
