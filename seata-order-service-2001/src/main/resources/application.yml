@@ -1,0 +1,72 @@
+server:
+  port: 2001
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+#    alibaba:
+#      seata:
+#        #自定义事务组名称需要与seata-server中的对应
+#        tx-service-group: ${spring.application.name}-tx-group
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        namespace: 6002660f-c6d8-49bf-97ff-3d7160903b0d
+#        group: SEATA_GROUP
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/seata_order?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: 123456
+
+
+seata:
+  enabled: true
+  application-id: ${spring.application.name}
+  enable-auto-data-source-proxy: false
+  # 事务群组（可以每个应用独立取名，也可以使用相同的名字），要与nacos配置列表中的service.vgroupMapping的后缀对应，
+  # 如service.vgroupMapping.seata-order-service-tx-group=default
+  # （nacos的配置列表项由D:\seata-1.4.0\script\config-center\config.txt推送所得）
+  tx-service-group: ${spring.application.name}-tx-group
+  service:
+    vgroupMapping:
+      seata-order-service-tx-group: default
+#    grouplist:
+#      default: 127.0.0.1:8091
+    enable-degrade: false
+    disable-global-transaction: false
+  config:
+    type: nacos
+    # 此处需要和seata-server在同一个注册中心，同一个命名空间下
+    nacos:
+      server-addr: localhost:8848
+      # 需要nacos配置client端（registry和config），seata-server端（registry和config）保持一致
+      group : SEATA_GROUP
+      namespace: 6002660f-c6d8-49bf-97ff-3d7160903b0d
+      username: "nacos"
+      password: "nacos"
+  registry:
+    type: nacos
+    nacos:
+      # 需要和seata-server端保持一致，即seata-server在nacos中的名称，默认为seata-server
+      application: seata-server
+      server-addr: localhost:8848
+      namespace: 6002660f-c6d8-49bf-97ff-3d7160903b0d
+      group: SEATA_GROUP
+      cluster: default
+      username: "nacos"
+      password: "nacos"
+
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+
